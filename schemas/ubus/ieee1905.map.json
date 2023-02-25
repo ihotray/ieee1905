@@ -1,0 +1,86 @@
+{
+  "definitions": {
+    "mac_t": {
+      "description": "mac address in string format",
+      "type": "string",
+      "minLength": 17,
+      "maxLength": 17,
+      "pattern": "([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}"
+    },
+    "boolean_t": {
+      "type": "string",
+      "pattern": "(0|1)"
+    },
+    "cmdu_type_t": {
+      "type": "integer",
+      "description" : "CMDU message type",
+      "pattern": "(2|5|13|17)"
+    },
+    "interface_name_t": {
+      "description": "Linux network interface name",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 256,
+      "pattern": "([a-z]+|br-){1}[a-z]+[0-9]",
+      "examples": [
+        "eth0",
+        "br-lan"
+      ]
+    },
+    "interface_type_t": {
+      "description": "Linux network interface type",
+      "type": "string",
+      "pattern": "^IEEE 802\\.(3u|3ab|11b|11g|11a|11n 2.4|11n 5.0|11ac|11ad|11af)"
+    },
+    "ipv4_t": {
+      "description": "IPv4 Address",
+      "type": "string",
+      "pattern": "([0-255]\\.){3}[0-255]"
+    },
+    "hex_t": {
+      "type": "string",
+      "pattern": "([0-9a-fA-F][0-9a-fA-F])+"
+    },
+    "mid_t": {
+      "description": "CMDU message identifier",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://www.iopsys.eu/usp.raw.json",
+  "type": "object",
+  "title": "ieee1905",
+  "object": "ieee1905.map",
+  "additionalProperties": false,
+  "regex": true,
+  "properties": {
+    "register": {
+      "title": "",
+      "description": "",
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "object",
+          "properties": {
+            "module": {
+              "type": "string"
+            },
+	    "data": {
+	      "$ref": "#/definitions/hex_t"
+	    }
+          }
+        },
+        "output": {
+          "type": "object",
+          "properties": {
+	    "oid": {
+	      "type": "integer"
+	    }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "ieee1905": [
+    {
+      "section": "ieee1905",
+      "description": "Ieee1905 Stack",
+      "multi": false,
+      "options": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "required": "yes",
+          "default": "false",
+          "description": "Enable ieee1905d daemon"
+        },
+        {
+          "name": "extension",
+          "type": "boolean",
+          "required": "no",
+          "default": "false",
+          "description": "Autoload extensions under extmodule"
+        },
+        {
+          "name": "extmoudle",
+          "type": "list",
+          "required": "no",
+          "default": null,
+          "description": "List of extensions to be automatically loaded from /usr/lib/ieee1905/"
+        },
+        {
+          "name": "macaddress",
+          "type": "string",
+          "required": "yes",
+          "default": "auto",
+          "description": "AL mac address, internal logic will determine mac in case of auto"
+        },
+        {
+          "name": "registrar",
+          "type": "string",
+          "required": "no",
+          "default": "",
+          "description": "Bands with registrar role supported"
+        }
+      ]
+    },
+    {
+      "section": "ap",
+      "description": "AP-Autoconfigured credentials",
+      "multi": true,
+      "options": [
+        {
+          "name": "band",
+          "type": "integer",
+          "required": "yes",
+          "default": "",
+          "description": "Band for which credentials are applicable"
+        },
+        {
+          "name": "ssid",
+          "type": "string",
+          "required": "yes",
+          "default": "",
+          "description": "SSID of provided credentials"
+        },
+        {
+          "name": "encryption",
+          "type": "string",
+          "required": "yes",
+          "default": "psk2",
+          "description": "Encrytion standard of provided credentials"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": "yes",
+          "default": "",
+          "description": "Network key of provided credentials"
+        }
+      ]
+    },
+    {
+      "section": "al-iface",
+      "description": "Interfaces enrolled for ieee1905 stack",
+      "multi": true,
+      "options": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "required": "yes",
+          "default": "0",
+          "description": "Enable interface"
+        },
+        {
+          "name": "ifname",
+          "type": "string",
+          "required": "yes",
+          "default": "",
+          "description": "Valid interface name ex {eth0, br-lan}"
+        },
+        {
+          "name": "media",
+          "type": "string",
+          "required": "yes",
+          "default": "",
+          "description": "Interface type, supported types {bridge, eth, wifi}"
+        }
+      ]
+    }
+  ]
+}

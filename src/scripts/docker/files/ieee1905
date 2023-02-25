@@ -1,0 +1,10 @@
+config ieee1905 'ieee1905'
+	option enabled '1'
+	option extension '1'
+	list extmodule 'map'
+	list extmodule 'snoop'
+	option macaddress 'aa:aa:aa:10:10:10'
+	option registrar '2 5'
+
+config al-iface
+        option enabled 1

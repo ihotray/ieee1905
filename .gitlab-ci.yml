@@ -1,0 +1,46 @@
+include:
+  - project: 'iopsys/gitlab-ci-pipeline'
+    file: '/static-code-analysis.yml'
+
+stages:
+    - static_code_analysis
+    - compile_test
+      #    - functional_test
+
+variables:
+  DEBUG: 'TRUE'
+  SOURCE_FOLDER: "."
+  RUN_CPPCHECK: "cppcheck --enable=all --error-exitcode=1 --suppress=unusedFunction --suppress=unreadVariable --suppress=variableScope --suppress=syntaxError ."
+  RUN_CPD: "/home/user/pmd-bin-6.19.0/bin/run.sh cpd --minimum-tokens 200 --language c --exclude ./test/cmocka --exclude ./src/tests --exclude ./src/extensions --files"
+  COMMON_IMAGE: iopsys/code-analysis:0.25
+
+run_compile_test:
+    stage: compile_test
+    image: iopsys/code-analysis
+    allow_failure: false
+    script:
+        - "./gitlab-ci/install-dependencies.sh"
+        - "./gitlab-ci/compile-warns.sh"
+
+    artifacts:
+        when: always
+        paths:
+            - functional-test-coverage.xml
+            - timestamp.log
+            - coverage.tar.gz
+
+    #run_functional_test:
+    #stage: functional_test
+    #image: iopsys/code-analysis-dev
+    #allow_failure: false
+    #script:
+    #    - "./gitlab-ci/install-dependencies.sh"
+    #    - "./gitlab-ci/setup.sh"
+    #    - "./gitlab-ci/functional-test.sh"
+    #
+    #artifacts:
+    #    when: always
+    #    paths:
+    #        - functional-test-coverage.xml
+    #        - timestamp.log
+    #        - coverage.tar.gz

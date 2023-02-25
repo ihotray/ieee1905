@@ -1,0 +1,547 @@
+{
+  "definitions": {
+    "mac_t": {
+      "description": "mac address in string format",
+      "type": "string",
+      "minLength": 17,
+      "maxLength": 17,
+      "pattern": "([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}"
+    },
+    "boolean_t": {
+      "type": "string",
+      "pattern": "(0|1)"
+    },
+    "cmdu_type_t": {
+      "type": "integer",
+      "description" : "CMDU message type",
+      "pattern": "(2|5|13|17)"
+    },
+    "interface_name_t": {
+      "description": "Linux network interface name",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 256,
+      "pattern": "([a-z]+|br-){1}[a-z]+[0-9]",
+      "examples": [
+        "eth0",
+        "br-lan"
+      ]
+    },
+    "interface_type_t": {
+      "description": "Linux network interface type",
+      "type": "string",
+      "pattern": "^IEEE 802\\.(3u|3ab|11b|11g|11a|11n 2.4|11n 5.0|11ac|11ad|11af)"
+    },
+    "ipv4_t": {
+      "description": "IPv4 Address",
+      "type": "string",
+      "pattern": "([0-255]\\.){3}[0-255]"
+    },
+    "hex_t": {
+      "type": "string",
+      "pattern": "([0-9a-fA-F][0-9a-fA-F])+"
+    },
+    "mid_t": {
+      "description": "CMDU message identifier",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://www.iopsys.eu/usp.raw.json",
+  "type": "object",
+  "title": "ieee1905",
+  "object": "ieee1905",
+  "additionalProperties": false,
+  "regex": true,
+  "properties": {
+    "start": {
+      "title": "Start daemon",
+      "description": "",
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "object",
+          "properties": {
+          }
+        },
+        "output": {
+          "type": "object",
+          "properties": {
+          }
+        }
+      }
+    },
+    "stop": {
+      "title": "Stop Daemon",
+      "description": "",
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "object",
+          "properties": {
+          }
+        },
+        "output": {
+          "type": "object",
+          "properties": {
+          }
+        }
+      }
+    },
+    "status": {
+      "title": "",
+      "description": "",
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "object",
+          "properties": {
+          }
+        },
+        "output": {
+          "type": "object",
+          "properties": {
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "AL entity interface info",
+      "description": "",
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "object",
+          "properties": {
+          }
+        },
+        "output": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "string"
+            },
+            "ieee1905id": {
+              "$ref": "#/definitions/mac_t"
+            },
+            "status": {
+              "type": "string"
+            },
+            "registrar": {
+              "type": "boolean"
+            },
+            "registrar_band": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "num_interfaces": {
+              "type": "integer"
+            },
+            "interface": {
+              "type": "array",
+              "items": {
+                "type":"object",
+                "properties": {
+                  "ifname": {
+                    "$ref": "#/definitions/interface_name_t"
+                  },
+                  "macaddress": {
+                    "$ref": "#/definitions/mac_t"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "up",
+                      "down"
+                    ]
+                  },
+                  "media": {
+                    "type": "string"
+                  },
+                  "genphy_oui": {
+                    "type": "string"
+                  },
+                  "genphy_variant": {
+                    "type": "string"
+                  },
+                  "genphy_url": {
+                    "type": "string"
+                  },
+                  "power": {
+                    "type": "string",
+                    "enum": [
+                      "on",
+                      "off"
+                    ]
+                  },
+                  "num_vendor_properties": {
+                    "type": "integer"
+                  },
+                  "properties": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/hex_t"
+                    }
+                  },
+                  "num_links": {
+                    "type": "integer"
+                  },
+                  "links": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "macaddress": {
+                          "$ref": "#/definitions/mac_t"
+                        },
+                        "ieee1905id": {
+                          "$ref": "#/definitions/mac_t"
+                        },
+                        "media": {
+                          "type": "string"
+                        },
+                        "metrics": {
+                          "type": "object",
+                          "properties": {
+                            "has_bridge": {
+                              "type": "boolean"
+                            },
+                            "tx_errors": {
+                              "type": "integer"
+                            },
+                            "rx_errors": {
+                              "type": "integer"
+                            },
+                            "tx_packets": {
+                              "type": "integer"
+                            },
+                            "rx_packets": {
+                              "type": "integer"
+                            },
+                            "max_macrate": {
+                              "type": "integer"
+                            },
+                            "max_phyrate": {
+                              "type": "integer"
+                            },
+                            "rssi": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "topology": {
+              "type": "object",
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "max_changelog": {
+                  "type": "integer"
+                },
+                "num_changelog": {
+                  "type": "integer"
+                },
+                "last_change": {
+                  "type": "string"
+                },
+                "num_device": {
+                  "type": "integer"
+                },
+                "device": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "ieee1905id": {
+                        "$ref": "#/definitions/mac_t"
+                      },
+                      "version": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "manufacturer": {
+                        "type": "string"
+                      },
+                      "model": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "num_vendor_properties": {
+                        "type": "integer"
+                      },
+                      "num_ipv4": {
+                        "type": "integer"
+                      },
+                      "num_ipv6": {
+                        "type": "integer"
+                      },
+                      "num_interface": {
+                        "type": "integer"
+                      },
+                      "num_neighbor_non1905": {
+                        "type": "integer"
+                      },
+                      "num_neighbor_1905": {
+                        "type": "integer"
+                      },
+                      "num_neighbor_l2": {
+                        "type": "integer"
+                      },
+                      "num_bridge_tuple": {
+                        "type": "integer"
+                      },
+                      "ipv4_address": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/ipv4_t"
+                        }
+                      },
+                      "ipv6_address": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "vendor_properties": {
+                          "type": "array"
+                        },
+                        "interface": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "macaddress": {
+                                "$ref": "#/definitions/mac_t"
+                              },
+                              "media": {
+                                "type": "string"
+                              },
+                              "power": {
+                                "type": "string",
+                                "enum": [
+                                  "on",
+                                  "off"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "non1905_neighbors": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "interface_macaddress": {
+                                "$ref": "#/definitions/mac_t"
+                              },
+                              "neighbors": {
+                                "type": "array",
+                                "items": {
+                                  "$ref": "#/definitions/mac_t"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "ieee1905_neighbors": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/definitions/mac_t"
+                          }
+                        },
+                        "bridge_tuples": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "macaddress": {
+                                "$ref": "#/definitions/mac_t"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "network_registrar": {
+              "type": "object",
+              "properties": {
+                "registrar_2": {
+                  "$ref": "#/definitions/mac_t"
+                },
+                "registrar_5": {
+                  "$ref": "#/definitions/mac_t"
+                },
+                "registrar_60": {
+                  "$ref": "#/definitions/mac_t"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "neighbors": {
+      "title": "Get list of neighbors",
+      "description": "",
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "object",
+          "properties": {
+          }
+        },
+        "output": {
+          "type": "object",
+          "properties": {
+            "neighbors": {
+              "type": "array",
+              "items": {
+                  "$ref": "#/definitions/mac_t"
+              }
+            }
+          }
+        }
+      }
+    },
+    "apconfig": {
+      "title": "Trigger AP-Autoconfig",
+      "description": "",
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "object",
+          "properties": {
+            "ifname": {
+              "$ref": "#/definitions/interface_name_t"
+            },
+            "band": {
+              "type": "integer"
+            },
+            "action": {
+              "type": "string"
+            }
+          }
+        },
+        "output": {
+          "type": "object",
+          "properties": {
+          }
+        }
+      }
+    },
+    "refresh": {
+      "title": "Refresh ieee1905",
+      "description": "",
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "object",
+          "properties": {
+          }
+        },
+        "output": {
+          "type": "object",
+          "properties": {
+          }
+        }
+      }
+    },
+    "cmdu": {
+      "title": "Send CMDU",
+      "description": "",
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "object",
+          "properties": {
+            "dst": {
+              "$ref": "#/definitions/mac_t"
+            },
+            "src": {
+              "$ref": "#/definitions/mac_t"
+            },
+            "type": {
+              "type": "integer"
+            },
+            "mid": {
+              "type": "integer"
+            },
+            "data": {
+              "$ref": "#/definitions/hex_t"
+            }
+          }
+        },
+        "output": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "ok",
+                "fail"
+              ]
+            },
+            "mid": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "buildcmdu": {
+      "title": "Build 1905 base CMDU",
+      "description": "",
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "integer"
+            },
+            "ifname": {
+              "$ref": "#/definitions/interface_name_t"
+            },
+            "args": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/hex_t"
+              }
+            }
+          }
+        },
+        "output": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "integer"
+            },
+            "data": {
+              "$ref": "#/definitions/hex_t"
+            }
+          }
+        }
+      }
+    }
+  }
+}
