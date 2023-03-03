@@ -1178,7 +1178,7 @@ struct tlv_ap_wifi6_caps {
 #define AGENT_ROLE_MASK                     0xC0
 #define AGENT_ROLE_AP                       0
 #define AGENT_ROLE_BH_STA                   1
-#define H160_SUPPORTED                      0x20
+#define HE160_SUPPORTED                     0x20
 #define HE8080_SUPPORTED                    0x10
 #define MCS_NSS_LEN_MASK                    0x0F
 		uint8_t caps;

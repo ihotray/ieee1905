@@ -20,3 +20,4 @@ ieee1905d
 src/xcp
 .DS_Store
 src/extensions/***/mapclient*
+._*
